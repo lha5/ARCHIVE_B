@@ -8,7 +8,7 @@ const App = ({ Component }) => {
     <>
       <Head>
         <meta charSet="utf-8" />
-        <title>AB</title>
+        <title>ArchiveB</title>
       </Head>
       <Component />
     </>

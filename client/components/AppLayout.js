@@ -7,7 +7,7 @@ const AppLayout = ({ children }) => {
       <div>
         <Link href="/"><a>홈</a></Link>
         <Link href="/user/profile"><a>프로필</a></Link>
-        <Link href="/signup"><a>계정 생성</a></Link>
+        <Link href="/user/signup"><a>계정 생성</a></Link>
       </div>
       {children}
     </div>
