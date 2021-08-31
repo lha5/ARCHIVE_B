@@ -1,7 +1,7 @@
-import AppLayout from '../components/AppLayout';
+import React from 'react';
 
 const Index = () => {
-  return <AppLayout>Hello, Next!</AppLayout>;
+  return <div>Hello, Next!</div>;
 };
 
 export default Index;
