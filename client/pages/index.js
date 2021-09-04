@@ -15,8 +15,10 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core';
-import { ExpandMore as ExpandMoreIcon, MoreVert } from '@material-ui/icons';
+import { CommentOutlined as CommentIcon, MoreVert } from '@material-ui/icons';
 import moment from 'moment';
+
+import TopBox from '../components/TopSection';
 
 const Wrapper = styled('div')({
   margin: '0',
@@ -43,12 +45,17 @@ const BottomSection = styled('div')({
 const Index = () => {
   const [data, setData] = useState([
     {
+      id: 2,
+      img_src:
+        'https://pbs.twimg.com/media/E-XYCUXUYAMr1qT?format=png&name=large',
+      createdAt: moment().format('YYYY[.]MM[.]DD hh[:]mm[:]ss'),
+      comments: [],
+    },
+    {
       id: 1,
-      title: '테스트 제목',
       img_src:
         'https://pbs.twimg.com/media/E-IFwmuWEAc3CKq?format=png&name=medium',
       createdAt: moment().format('YYYY[.]MM[.]DD hh[:]mm[:]ss'),
-      content: '테스트 내용',
       comments: [
         {
           id: 11111,
@@ -57,15 +64,6 @@ const Index = () => {
           createdAt: moment().format('YYYY[.]MM[.]DD hh[:]mm[:]ss'),
         },
       ],
-    },
-    {
-      id: 2,
-      title: '테스트 제목',
-      img_src:
-        'https://pbs.twimg.com/media/E-IFwmuWEAc3CKq?format=png&name=medium',
-      createdAt: moment().format('YYYY[.]MM[.]DD hh[:]mm[:]ss'),
-      content: '테스트 내용',
-      comments: [],
     },
   ]);
   const [expanded, setExpanded] = useState([]);
@@ -84,27 +82,49 @@ const Index = () => {
 
   return (
     <Wrapper>
+      <TopBox />
       {data.map((each, key) => (
         <Card
           key={each.id + key}
-          sx={{ maxWidth: 750, margin: '0 auto 25px auto' }}
+          sx={{ maxWidth: 750, margin: '0 auto 25px auto', padding: '0 10px' }}
           variant="outlined"
         >
           <CardHeader
             action={
-              <IconButton>
-                <MoreVert />
-              </IconButton>
+              <>
+                <Button
+                  variant="outlined"
+                  size="sm"
+                  sx={{
+                    maxHeight: '30px',
+                    marginTop: '7px',
+                    fontSize: '12px',
+                    borderColor: 'rgba(0, 0, 0, 0.12)',
+                    color: 'rgba(0, 0, 0, 0.54)',
+                    marginRight: '10px',
+                  }}
+                >
+                  수정
+                </Button>
+                <Button
+                  variant="outlined"
+                  size="sm"
+                  sx={{
+                    maxHeight: '30px',
+                    marginTop: '7px',
+                    borderColor: 'rgba(0, 0, 0, 0.12)',
+                    color: 'rgba(0, 0, 0, 0.54)',
+                    fontSize: '12px',
+                  }}
+                >
+                  삭제
+                </Button>
+              </>
             }
-            title={each.title}
+            title={`# ${each.id}`}
             subheader={each.createdAt}
           />
           <CardMedia component="img" image={each.img_src} alt="" />
-          <CardContent>
-            <Typography variant="body1" color="text.secondary">
-              {each.content}
-            </Typography>
-          </CardContent>
           <CardActions disableSpacing>
             <ExpandMore
               expand={expanded.indexOf(each.id) !== -1 ? true : false}
@@ -112,7 +132,7 @@ const Index = () => {
               aria-expanded={expanded.indexOf(each.id) !== -1 ? true : false}
               aria-label="comment more"
             >
-              <ExpandMoreIcon />
+              <CommentIcon />
             </ExpandMore>
           </CardActions>
           <Collapse
