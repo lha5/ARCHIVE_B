@@ -60,6 +60,7 @@ const CssTextField = styled(TextField)({
 const DelBtn = styled('span')({
   fontSize: '12px',
   marginLeft: '10px',
+  cursor: 'pointer',
 });
 
 const Index = () => {
