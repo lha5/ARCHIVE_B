@@ -15,13 +15,18 @@ import {
   TextField,
   Typography,
 } from '@material-ui/core';
-import { CommentOutlined as CommentIcon, MoreVert } from '@material-ui/icons';
+import { ExpandMore as ExpandMoreIcon, MoreVert } from '@material-ui/icons';
 import moment from 'moment';
 
 import TopBox from '../components/TopSection';
 
 const Wrapper = styled('div')({
   margin: '0',
+  '.MuiTypography-subtitle2': {
+    fontWeight: '400',
+    color: 'rgba(0, 0, 0, 0.5)',
+    marginBottom: '5px',
+  },
 });
 
 const ExpandMore = styled((props) => {
@@ -42,6 +47,21 @@ const BottomSection = styled('div')({
   flexDirection: 'row',
 });
 
+const CssTextField = styled(TextField)({
+  '& input': {
+    height: '20px',
+    padding: '7px 12px',
+  },
+  '& input::placeholder': {
+    fontSize: '13px',
+  },
+});
+
+const DelBtn = styled('span')({
+  fontSize: '12px',
+  marginLeft: '10px',
+});
+
 const Index = () => {
   const [data, setData] = useState([
     {
@@ -60,7 +80,13 @@ const Index = () => {
         {
           id: 11111,
           name: '테스터',
-          comment: '테스트 댓글',
+          comment: '테스트 댓글1',
+          createdAt: moment().format('YYYY[.]MM[.]DD hh[:]mm[:]ss'),
+        },
+        {
+          id: 22222,
+          name: '테스터',
+          comment: '테스트 댓글2',
           createdAt: moment().format('YYYY[.]MM[.]DD hh[:]mm[:]ss'),
         },
       ],
@@ -97,7 +123,7 @@ const Index = () => {
                   size="sm"
                   sx={{
                     maxHeight: '30px',
-                    marginTop: '7px',
+                    marginTop: '17px',
                     fontSize: '12px',
                     borderColor: 'rgba(0, 0, 0, 0.12)',
                     color: 'rgba(0, 0, 0, 0.54)',
@@ -111,7 +137,7 @@ const Index = () => {
                   size="sm"
                   sx={{
                     maxHeight: '30px',
-                    marginTop: '7px',
+                    marginTop: '17px',
                     borderColor: 'rgba(0, 0, 0, 0.12)',
                     color: 'rgba(0, 0, 0, 0.54)',
                     fontSize: '12px',
@@ -123,8 +149,31 @@ const Index = () => {
             }
             title={`# ${each.id}`}
             subheader={each.createdAt}
+            sx={{
+              borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
+              marginBottom: '10px',
+            }}
           />
           <CardMedia component="img" image={each.img_src} alt="" />
+          <CardContent
+            sx={{
+              borderTop: '1px solid rgba(0, 0, 0, 0.12)',
+              marginTop: '10px',
+            }}
+          >
+            {each.comments.map((reply, key) => (
+              <Typography
+                paragraph
+                key={reply.id + key}
+                sx={{ marginBottom: '25px' }}
+              >
+                <Typography variant="subtitle2">
+                  {reply.name} {reply.createdAt} <DelBtn>삭제</DelBtn>
+                </Typography>
+                <Typography variant="body2">{reply.comment}</Typography>
+              </Typography>
+            ))}
+          </CardContent>
           <CardActions disableSpacing>
             <ExpandMore
               expand={expanded.indexOf(each.id) !== -1 ? true : false}
@@ -132,7 +181,7 @@ const Index = () => {
               aria-expanded={expanded.indexOf(each.id) !== -1 ? true : false}
               aria-label="comment more"
             >
-              <CommentIcon />
+              <ExpandMoreIcon />
             </ExpandMore>
           </CardActions>
           <Collapse
@@ -140,35 +189,37 @@ const Index = () => {
             timeout="auto"
             unmountOnExit
           >
-            <CardContent>
-              {each.comments.map((reply, key) => (
-                <Typography paragraph key={reply.id + key}>
-                  <Typography variant="subtitle2">
-                    {reply.name} {reply.createdAt}
-                  </Typography>
-                  <Typography variant="body2">{reply.comment}</Typography>
-                </Typography>
-              ))}
-            </CardContent>
             <CardContent
               noValidate
               autoComplete="off"
               sx={{ display: 'grid', rowGap: '10px' }}
             >
               <TopSection>
-                <TextField
-                  type="password"
-                  variant="standard"
+                <CssTextField
+                  type="text"
+                  variant="outlined"
                   size="small"
-                  placeholder="비밀번호(선택)"
+                  placeholder="닉네임"
+                  sx={{ maxWidth: '100px', marginRight: '10px' }}
+                />
+                <CssTextField
+                  type="password"
+                  variant="outlined"
+                  size="small"
+                  placeholder="비밀번호"
+                  sx={{ maxWidth: '88px' }}
                 />
               </TopSection>
               <BottomSection>
-                <TextField multiline rows={4} fullWidth />
+                <TextField multiline rows={3} fullWidth />
                 <Button
-                  variant="outlined"
+                  variant="contained"
                   disableElevation
-                  sx={{ minWidth: '120px', marginLeft: '15px' }}
+                  sx={{
+                    minWidth: '120px',
+                    marginLeft: '15px',
+                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                  }}
                 >
                   댓글 달기
                 </Button>
