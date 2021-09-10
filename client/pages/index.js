@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 import { styled } from '@material-ui/core/styles';
 import {
-  Box,
   Button,
   Card,
   CardHeader,
@@ -10,12 +9,14 @@ import {
   CardContent,
   CardActions,
   Collapse,
-  FormHelperText,
   IconButton,
   TextField,
   Typography,
 } from '@material-ui/core';
-import { ExpandMore as ExpandMoreIcon, MoreVert } from '@material-ui/icons';
+import {
+  ExpandMore as ExpandMoreIcon,
+  Delete as DeleteIcon,
+} from '@material-ui/icons';
 import moment from 'moment';
 
 import TopBox from '../components/TopSection';
@@ -113,53 +114,37 @@ const Index = () => {
       {data.map((each, key) => (
         <Card
           key={each.id + key}
-          sx={{ maxWidth: 750, margin: '0 auto 25px auto', padding: '0 10px' }}
+          sx={{ maxWidth: 750, margin: '0 auto 25px auto' }}
           variant="outlined"
         >
           <CardHeader
             action={
-              <>
-                <Button
-                  variant="outlined"
-                  size="sm"
-                  sx={{
-                    maxHeight: '30px',
-                    marginTop: '17px',
-                    fontSize: '12px',
-                    borderColor: 'rgba(0, 0, 0, 0.12)',
-                    color: 'rgba(0, 0, 0, 0.54)',
-                    marginRight: '10px',
-                  }}
-                >
-                  수정
-                </Button>
-                <Button
-                  variant="outlined"
-                  size="sm"
-                  sx={{
-                    maxHeight: '30px',
-                    marginTop: '17px',
-                    borderColor: 'rgba(0, 0, 0, 0.12)',
-                    color: 'rgba(0, 0, 0, 0.54)',
-                    fontSize: '12px',
-                  }}
-                >
-                  삭제
-                </Button>
-              </>
+              <IconButton
+                size="small"
+                color="error"
+                sx={{
+                  maxHeight: '30px',
+                  marginTop: '17px',
+                  // borderColor: 'rgba(0, 0, 0, 0.12)',
+                  // color: 'rgba(0, 0, 0, 0.54)',
+                  // fontSize: '12px',
+                }}
+              >
+                <DeleteIcon fontSize="inherit" />
+              </IconButton>
             }
             title={`# ${each.id}`}
             subheader={each.createdAt}
             sx={{
               borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
-              marginBottom: '10px',
+              // marginBottom: '10px',
             }}
           />
-          <CardMedia component="img" image={each.img_src} alt="" />
+          <CardMedia component="img" image={each.img_src} alt="" sx={{ margin: '10px auto', width: '97%' }} />
           <CardContent
             sx={{
               borderTop: '1px solid rgba(0, 0, 0, 0.12)',
-              marginTop: '10px',
+              // marginTop: '10px',
             }}
           >
             {each.comments.map((reply, key) => (
