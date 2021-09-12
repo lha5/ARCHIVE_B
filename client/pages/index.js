@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 import { styled } from '@material-ui/core/styles';
 import {
+  Box,
   Card,
   CardHeader,
   CardMedia,
@@ -10,6 +11,7 @@ import {
   Collapse,
   IconButton,
   Typography,
+  Pagination,
 } from '@material-ui/core';
 import {
   ExpandMore as ExpandMoreIcon,
@@ -49,29 +51,84 @@ const DelBtn = styled('span')({
 const Index = () => {
   const [data, setData] = useState([
     {
+      id: 4,
+      type: 'text',
+      content_value: '뒤늦은 자덕질, 너무 재미있다',
+      createdAt: moment().format('YYYY[.]MM[.]DD hh[:]mm[:]ss'),
+      is_collapse: false,
+      is_secret: false,
+      comments: [
+        {
+          id: 3331,
+          name: '테스터3',
+          comment: '테스트 댓글3-1',
+          createdAt: moment().format('YYYY[.]MM[.]DD hh[:]mm[:]ss'),
+          is_collapse: false,
+          is_secret: false,
+        },
+      ],
+    },
+    {
+      id: 3,
+      type: 'image',
+      content_value:
+        'https://pbs.twimg.com/media/E-2jtPpUYAAu4ml?format=jpg&name=large',
+      createdAt: moment().format('YYYY[.]MM[.]DD hh[:]mm[:]ss'),
+      is_collapse: false,
+      is_secret: true,
+      comments: [
+        {
+          id: 2221,
+          name: '테스터2',
+          comment: '테스트 댓글2-1',
+          createdAt: moment().format('YYYY[.]MM[.]DD hh[:]mm[:]ss'),
+          is_collapse: false,
+          is_secret: true,
+        },
+        {
+          id: 2222,
+          name: '테스터2',
+          comment: '테스트 댓글2-2',
+          createdAt: moment().format('YYYY[.]MM[.]DD hh[:]mm[:]ss'),
+          is_collapse: true,
+          is_secret: false,
+        },
+      ],
+    },
+    {
       id: 2,
-      img_src:
+      type: 'image',
+      content_value:
         'https://pbs.twimg.com/media/E-XYCUXUYAMr1qT?format=png&name=large',
       createdAt: moment().format('YYYY[.]MM[.]DD hh[:]mm[:]ss'),
+      is_collapse: true,
+      is_secret: false,
       comments: [],
     },
     {
       id: 1,
-      img_src:
+      type: 'image',
+      content_value:
         'https://pbs.twimg.com/media/E-IFwmuWEAc3CKq?format=png&name=medium',
       createdAt: moment().format('YYYY[.]MM[.]DD hh[:]mm[:]ss'),
+      is_collapse: false,
+      is_secret: false,
       comments: [
         {
-          id: 11111,
-          name: '테스터',
+          id: 1111,
+          name: '테스터1',
           comment: '테스트 댓글1',
           createdAt: moment().format('YYYY[.]MM[.]DD hh[:]mm[:]ss'),
+          is_collapse: false,
+          is_secret: false,
         },
         {
-          id: 22222,
-          name: '테스터',
+          id: 1112,
+          name: '테스터1',
           comment: '테스트 댓글2',
           createdAt: moment().format('YYYY[.]MM[.]DD hh[:]mm[:]ss'),
+          is_collapse: true,
+          is_secret: false,
         },
       ],
     },
@@ -93,6 +150,17 @@ const Index = () => {
   return (
     <Wrapper>
       <TopBox />
+      <Pagination
+        count={5}
+        sx={{
+          '& ul': {
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            marginBottom: '5px',
+          },
+        }}
+      />
       {data.map((each, key) => (
         <Card
           key={each.id + key}
@@ -103,10 +171,10 @@ const Index = () => {
             action={
               <IconButton
                 size="small"
-                color="error"
                 sx={{
                   maxHeight: '30px',
                   marginTop: '17px',
+                  color: 'rgba(0, 0, 0, 0.52)',
                 }}
               >
                 <DeleteIcon fontSize="inherit" />
@@ -119,7 +187,19 @@ const Index = () => {
               // marginBottom: '10px',
             }}
           />
-          <CardMedia component="img" image={each.img_src} alt="" sx={{ margin: '10px auto', width: '97%' }} />
+          {each.type === 'image' && (
+            <CardMedia
+              component="img"
+              image={each.content_value}
+              alt=""
+              sx={{ margin: '10px auto', width: '97%' }}
+            />
+          )}
+          {each.type === 'text' && (
+            <Box sx={{ margin: '20px 10px', textAlign: 'center' }}>
+              {each.content_value}
+            </Box>
+          )}
           <CardContent
             sx={{
               borderTop: '1px solid rgba(0, 0, 0, 0.12)',
@@ -135,7 +215,16 @@ const Index = () => {
                 <Typography variant="subtitle2">
                   {reply.name} {reply.createdAt} <DelBtn>삭제</DelBtn>
                 </Typography>
-                <Typography variant="body2">{reply.comment}</Typography>
+                {reply.is_secret ? (
+                  <Typography
+                    variant="body2"
+                    sx={{ '&': { color: 'rgba(0, 0, 0, 0.3)' } }}
+                  >
+                    비밀글 입니다.
+                  </Typography>
+                ) : (
+                  <Typography variant="body2">{reply.comment}</Typography>
+                )}
               </Typography>
             ))}
           </CardContent>

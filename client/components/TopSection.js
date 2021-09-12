@@ -27,13 +27,14 @@ const Options = styled('div')({
   },
   '& .MuiFormControlLabel-label': {
     fontSize: '14px',
-    color: 'rgba(0, 0, 0, 0.52)'
+    color: 'rgba(0, 0, 0, 0.52)',
   },
 });
 
 const ImageUploader = styled('div')({
   '&': {
     marginTop: '10px',
+    marginBottom: '10px',
   },
   '& input[type="file"]': {
     position: 'absolute',
@@ -77,9 +78,12 @@ const ImageUploader = styled('div')({
   },
 });
 
-const TextBox = styled('div')({
+const InputWrapper = styled('div')({
   '&': {
-    marginTop: '10px',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 
@@ -101,22 +105,23 @@ const TopSection = () => {
   );
 
   const selectedTextOption = () => (
-    <TextBox>
-      <TextField
-        variant="outlined"
-        size="small"
-        sx={{
-          width: '400px',
-          height: '30px',
-          '& fieldset': {
-            borderColor: 'rgba(0, 0, 0, 0.12)',
-          },
-          '& input': { paddingY: '8px' },
-          '& ::placeholder': { fontSize: '14px' },
-        }}
-        placeholder="글을 입력하세요."
-      />
-    </TextBox>
+    <TextField
+      variant="outlined"
+      multiline
+      rows={2}
+      sx={{
+        width: '400px',
+        height: 'auto',
+        marginTop: '10px',
+        marginBottom: '10px',
+        '& fieldset': {
+          borderColor: 'rgba(0, 0, 0, 0.12)',
+        },
+        '& input': { paddingY: '8px' },
+        '& ::placeholder': { fontSize: '14px' },
+      }}
+      placeholder="글을 입력하세요."
+    />
   );
 
   return (
@@ -145,7 +150,7 @@ const TopSection = () => {
             fontSize: '14px',
             color: 'rgba(0, 0, 0, 0.52)',
             '& .MuiSelect-select': {
-              padding: '10px 12px'
+              padding: '10px 12px',
             },
           }}
         >
@@ -153,16 +158,16 @@ const TopSection = () => {
           <MenuItem value="text">텍스트</MenuItem>
         </Select>
       </Options>
+      <InputWrapper>
       {selected === 'image' && selectedImageOption()}
       {selected === 'text' && selectedTextOption()}
-      <br />
       <Button
         variant="contained"
         disableElevation
         sx={{ backgroundColor: 'rgba(0, 0, 0, 0.8)' }}
       >
         업로드
-      </Button>
+      </Button></InputWrapper>
     </Box>
   );
 };
