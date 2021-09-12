@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 
 import { styled } from '@material-ui/core/styles';
 import {
-  Button,
   Card,
   CardHeader,
   CardMedia,
@@ -10,7 +9,6 @@ import {
   CardActions,
   Collapse,
   IconButton,
-  TextField,
   Typography,
 } from '@material-ui/core';
 import {
@@ -20,6 +18,7 @@ import {
 import moment from 'moment';
 
 import TopBox from '../components/TopSection';
+import CommentSection from '../components/CommentSection';
 
 const Wrapper = styled('div')({
   margin: '0',
@@ -40,23 +39,6 @@ const ExpandMore = styled((props) => {
     duration: theme.transitions.duration.shortest,
   }),
 }));
-
-const TopSection = styled('div')({});
-
-const BottomSection = styled('div')({
-  display: 'flex',
-  flexDirection: 'row',
-});
-
-const CssTextField = styled(TextField)({
-  '& input': {
-    height: '20px',
-    padding: '7px 12px',
-  },
-  '& input::placeholder': {
-    fontSize: '13px',
-  },
-});
 
 const DelBtn = styled('span')({
   fontSize: '12px',
@@ -125,9 +107,6 @@ const Index = () => {
                 sx={{
                   maxHeight: '30px',
                   marginTop: '17px',
-                  // borderColor: 'rgba(0, 0, 0, 0.12)',
-                  // color: 'rgba(0, 0, 0, 0.54)',
-                  // fontSize: '12px',
                 }}
               >
                 <DeleteIcon fontSize="inherit" />
@@ -175,42 +154,7 @@ const Index = () => {
             timeout="auto"
             unmountOnExit
           >
-            <CardContent
-              noValidate
-              autoComplete="off"
-              sx={{ display: 'grid', rowGap: '10px' }}
-            >
-              <TopSection>
-                <CssTextField
-                  type="text"
-                  variant="outlined"
-                  size="small"
-                  placeholder="닉네임"
-                  sx={{ maxWidth: '100px', marginRight: '10px' }}
-                />
-                <CssTextField
-                  type="password"
-                  variant="outlined"
-                  size="small"
-                  placeholder="비밀번호"
-                  sx={{ maxWidth: '88px' }}
-                />
-              </TopSection>
-              <BottomSection>
-                <TextField multiline rows={3} fullWidth />
-                <Button
-                  variant="contained"
-                  disableElevation
-                  sx={{
-                    minWidth: '120px',
-                    marginLeft: '15px',
-                    backgroundColor: 'rgba(0, 0, 0, 0.8)',
-                  }}
-                >
-                  댓글 달기
-                </Button>
-              </BottomSection>
-            </CardContent>
+            <CommentSection />
           </Collapse>
         </Card>
       ))}
