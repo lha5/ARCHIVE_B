@@ -9,6 +9,7 @@ import {
   Select,
   MenuItem,
   TextField,
+  Pagination,
 } from '@material-ui/core';
 import { Search } from '@material-ui/icons';
 
@@ -125,50 +126,63 @@ const TopSection = () => {
   );
 
   return (
-    <Box
-      sx={{
-        maxWidth: 750,
-        margin: '0 auto 25px auto',
-        textAlign: 'center',
-        padding: '30px 0 20px 0',
-      }}
-    >
-      <Options>
-        <FormControlLabel
-          control={<Checkbox color="default" size="small" />}
-          label="접기"
-        />
-        <FormControlLabel
-          control={<Checkbox color="default" size="small" />}
-          label="비밀글"
-        />
-        <Select
-          defaultValue={selected}
-          onChange={handleChange}
-          sx={{
-            maxHeight: '32px',
-            fontSize: '14px',
-            color: 'rgba(0, 0, 0, 0.52)',
-            '& .MuiSelect-select': {
-              padding: '10px 12px',
-            },
-          }}
-        >
-          <MenuItem value="image">이미지</MenuItem>
-          <MenuItem value="text">텍스트</MenuItem>
-        </Select>
-      </Options>
-      <InputWrapper>
-      {selected === 'image' && selectedImageOption()}
-      {selected === 'text' && selectedTextOption()}
-      <Button
-        variant="contained"
-        disableElevation
-        sx={{ backgroundColor: 'rgba(0, 0, 0, 0.8)' }}
+    <>
+      <Box
+        sx={{
+          maxWidth: 750,
+          margin: '0 auto 25px auto',
+          textAlign: 'center',
+          padding: '30px 0 20px 0',
+        }}
       >
-        업로드
-      </Button></InputWrapper>
-    </Box>
+        <Options>
+          <FormControlLabel
+            control={<Checkbox color="default" size="small" />}
+            label="접기"
+          />
+          <FormControlLabel
+            control={<Checkbox color="default" size="small" />}
+            label="비밀글"
+          />
+          <Select
+            defaultValue={selected}
+            onChange={handleChange}
+            sx={{
+              maxHeight: '32px',
+              fontSize: '14px',
+              color: 'rgba(0, 0, 0, 0.52)',
+              '& .MuiSelect-select': {
+                padding: '10px 12px',
+              },
+            }}
+          >
+            <MenuItem value="image">이미지</MenuItem>
+            <MenuItem value="text">텍스트</MenuItem>
+          </Select>
+        </Options>
+        <InputWrapper>
+        {selected === 'image' && selectedImageOption()}
+        {selected === 'text' && selectedTextOption()}
+        <Button
+          variant="contained"
+          disableElevation
+          sx={{ backgroundColor: 'rgba(0, 0, 0, 0.8)' }}
+        >
+          업로드
+        </Button></InputWrapper>
+      </Box>
+      <Pagination
+        count={5}
+        sx={{
+          '& ul': {
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            marginBottom: '5px',
+          },
+        }}
+      />
+    </>
   );
 };
 

@@ -19,7 +19,9 @@ import {
 } from '@material-ui/icons';
 import moment from 'moment';
 
-import TopBox from '../components/TopSection';
+import TopSection from '../components/TopSection';
+import ContentSection from '../components/ContentSection';
+import CommentList from '../components/CommentList';
 import CommentSection from '../components/CommentSection';
 
 const Wrapper = styled('div')({
@@ -41,12 +43,6 @@ const ExpandMore = styled((props) => {
     duration: theme.transitions.duration.shortest,
   }),
 }));
-
-const DelBtn = styled('span')({
-  fontSize: '12px',
-  marginLeft: '10px',
-  cursor: 'pointer',
-});
 
 const Index = () => {
   const [data, setData] = useState([
@@ -149,18 +145,7 @@ const Index = () => {
 
   return (
     <Wrapper>
-      <TopBox />
-      <Pagination
-        count={5}
-        sx={{
-          '& ul': {
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'center',
-            marginBottom: '5px',
-          },
-        }}
-      />
+      <TopSection />
       {data.map((each, key) => (
         <Card
           key={each.id + key}
@@ -184,56 +169,16 @@ const Index = () => {
             subheader={each.createdAt}
             sx={{
               borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
-              // marginBottom: '10px',
             }}
           />
-          {each.type === 'image' && (
-            <CardMedia
-              component="img"
-              image={each.content_value}
-              alt=""
-              sx={{ margin: '10px auto', width: '97%' }}
-            />
-          )}
-          {each.type === 'text' && (
-            <Box sx={{ margin: '20px 10px', textAlign: 'center' }}>
-              {each.content_value}
-            </Box>
-          )}
-          <CardContent
-            sx={{
-              borderTop: '1px solid rgba(0, 0, 0, 0.12)',
-              // marginTop: '10px',
-            }}
-          >
-            {each.comments.map((reply, key) => (
-              <Typography
-                paragraph
-                key={reply.id + key}
-                sx={{ marginBottom: '25px' }}
-              >
-                <Typography variant="subtitle2">
-                  {reply.name} {reply.createdAt} <DelBtn>삭제</DelBtn>
-                </Typography>
-                {reply.is_secret ? (
-                  <Typography
-                    variant="body2"
-                    sx={{ '&': { color: 'rgba(0, 0, 0, 0.3)' } }}
-                  >
-                    비밀글 입니다.
-                  </Typography>
-                ) : (
-                  <Typography variant="body2">{reply.comment}</Typography>
-                )}
-              </Typography>
-            ))}
-          </CardContent>
+          <ContentSection content={each} />
+          <CommentList comments={each.comments} />
           <CardActions disableSpacing>
             <ExpandMore
               expand={expanded.indexOf(each.id) !== -1 ? true : false}
               onClick={() => handleExpandClick(each.id)}
               aria-expanded={expanded.indexOf(each.id) !== -1 ? true : false}
-              aria-label="comment more"
+              aria-label="to comment"
             >
               <ExpandMoreIcon />
             </ExpandMore>
