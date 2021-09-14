@@ -2,22 +2,10 @@ import React, { useState } from 'react';
 
 import { styled } from '@material-ui/core/styles';
 import {
-  Box,
-  Card,
-  CardHeader,
-  CardMedia,
   CardContent,
-  CardActions,
   Collapse,
-  IconButton,
   Typography,
-  Pagination,
 } from '@material-ui/core';
-import {
-  ExpandMore as ExpandMoreIcon,
-  Delete as DeleteIcon,
-} from '@material-ui/icons';
-import moment from 'moment';
 
 const DelBtn = styled('span')({
   fontSize: '12px',
@@ -26,6 +14,20 @@ const DelBtn = styled('span')({
 });
 
 const CommentList = ({ comments }) => {
+  const [collapsedComment, setCollapsedComment] = useState([]);
+
+  const handleCollapsedCommentClick = (id) => {
+    const currentIndex = collapsedComment.indexOf(id);
+    const newExpanded = [...collapsedComment];
+
+    if (currentIndex === -1) {
+      newExpanded.push(id);
+    } else {
+      newExpanded.splice(currentIndex, 1);
+    }
+    setCollapsedComment(newExpanded);
+  };
+
   return (
     <CardContent
       sx={{
@@ -49,7 +51,27 @@ const CommentList = ({ comments }) => {
               비밀글 입니다.
             </Typography>
           ) : (
-            <Typography variant="body2">{reply.comment}</Typography>
+            reply.is_collapse ? (
+              <>
+              <span
+                onClick={() => handleCollapsedCommentClick(reply.id)}
+                aria-expanded={collapsedComment.indexOf(reply.id) !== -1 ? true : false}
+                aria-label="collapsed"
+                style={{ cursor: 'pointer', fontSize: '14px', color: 'rgba(0, 0, 0, 0.52)' }}
+              >
+                {collapsedComment.indexOf(reply.id) !== -1 ? '접기' : '펼치기'}
+              </span>
+                <Collapse
+                  in={collapsedComment.indexOf(reply.id) !== -1 ? true : false}
+                  timeout="auto"
+                  unmountOnExit
+                >
+                  <Typography variant="body2">{reply.comment}</Typography>
+                </Collapse>
+              </>
+            ) :(
+              <Typography variant="body2">{reply.comment}</Typography>
+            )
           )}
         </Typography>
       ))}

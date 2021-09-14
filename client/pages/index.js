@@ -2,16 +2,11 @@ import React, { useState } from 'react';
 
 import { styled } from '@material-ui/core/styles';
 import {
-  Box,
   Card,
   CardHeader,
-  CardMedia,
-  CardContent,
   CardActions,
   Collapse,
   IconButton,
-  Typography,
-  Pagination,
 } from '@material-ui/core';
 import {
   ExpandMore as ExpandMoreIcon,

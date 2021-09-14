@@ -136,6 +136,23 @@ const TopSection = () => {
         }}
       >
         <Options>
+          <TextField
+            type="password"
+            variant="outlined"
+            size="small"
+            sx={{
+              maxWidth: '90px',
+              maxHeight: '32px',
+              fontSize: '14px',
+              color: 'rgba(0, 0, 0, 0.52)',
+              '& ::placeholder': { fontSize: '13px' },
+              '& input': {
+                padding: '5px',
+              },
+              marginRight: '10px',
+            }}
+            placeholder="비밀번호"
+          />
           <FormControlLabel
             control={<Checkbox color="default" size="small" />}
             label="접기"
@@ -161,15 +178,16 @@ const TopSection = () => {
           </Select>
         </Options>
         <InputWrapper>
-        {selected === 'image' && selectedImageOption()}
-        {selected === 'text' && selectedTextOption()}
-        <Button
-          variant="contained"
-          disableElevation
-          sx={{ backgroundColor: 'rgba(0, 0, 0, 0.8)' }}
-        >
-          업로드
-        </Button></InputWrapper>
+          {selected === 'image' && selectedImageOption()}
+          {selected === 'text' && selectedTextOption()}
+          <Button
+            variant="contained"
+            disableElevation
+            sx={{ backgroundColor: 'rgba(0, 0, 0, 0.8)' }}
+          >
+            업로드
+          </Button>
+        </InputWrapper>
       </Box>
       <Pagination
         count={5}
