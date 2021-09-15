@@ -12,6 +12,7 @@ import {
   Pagination,
 } from '@material-ui/core';
 import { Search } from '@material-ui/icons';
+import { useForm } from 'react-hook-form';
 
 const Options = styled('div')({
   '&': {
@@ -20,7 +21,7 @@ const Options = styled('div')({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  '& label:nth-child(1)': {
+  '& label:first-of-type': {
     marginRight: '20px',
   },
   '& .MuiCheckbox-root': {
@@ -91,8 +92,19 @@ const InputWrapper = styled('div')({
 const TopSection = () => {
   const [selected, setSelected] = useState('image');
 
+  const { register, handleSubmit } = useForm({
+    mode: 'onSubmit',
+    shouldFocusError: true,
+  });
+
   const handleChange = (event) => {
     setSelected(event.target.value);
+  };
+
+  const onSubmit = (data) => {
+    const dataToSubmit = { ...data };
+    dataToSubmit.type = selected;
+    console.log('data? ', dataToSubmit);
   };
 
   const selectedImageOption = () => (
@@ -122,6 +134,7 @@ const TopSection = () => {
         '& ::placeholder': { fontSize: '14px' },
       }}
       placeholder="글을 입력하세요."
+      {...register('content_value')}
     />
   );
 
@@ -135,59 +148,65 @@ const TopSection = () => {
           padding: '30px 0 20px 0',
         }}
       >
-        <Options>
-          <TextField
-            type="password"
-            variant="outlined"
-            size="small"
-            sx={{
-              maxWidth: '90px',
-              maxHeight: '32px',
-              fontSize: '14px',
-              color: 'rgba(0, 0, 0, 0.52)',
-              '& ::placeholder': { fontSize: '13px' },
-              '& input': {
-                padding: '5px',
-              },
-              marginRight: '10px',
-            }}
-            placeholder="비밀번호"
-          />
-          <FormControlLabel
-            control={<Checkbox color="default" size="small" />}
-            label="접기"
-          />
-          <FormControlLabel
-            control={<Checkbox color="default" size="small" />}
-            label="비밀글"
-          />
-          <Select
-            defaultValue={selected}
-            onChange={handleChange}
-            sx={{
-              maxHeight: '32px',
-              fontSize: '14px',
-              color: 'rgba(0, 0, 0, 0.52)',
-              '& .MuiSelect-select': {
-                padding: '10px 12px',
-              },
-            }}
-          >
-            <MenuItem value="image">이미지</MenuItem>
-            <MenuItem value="text">텍스트</MenuItem>
-          </Select>
-        </Options>
-        <InputWrapper>
-          {selected === 'image' && selectedImageOption()}
-          {selected === 'text' && selectedTextOption()}
-          <Button
-            variant="contained"
-            disableElevation
-            sx={{ backgroundColor: 'rgba(0, 0, 0, 0.8)' }}
-          >
-            업로드
-          </Button>
-        </InputWrapper>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Options>
+            <TextField
+              type="password"
+              variant="outlined"
+              size="small"
+              sx={{
+                maxWidth: '90px',
+                maxHeight: '32px',
+                fontSize: '14px',
+                color: 'rgba(0, 0, 0, 0.52)',
+                '& ::placeholder': { fontSize: '13px' },
+                '& input': {
+                  padding: '5px',
+                },
+                marginRight: '10px',
+              }}
+              placeholder="비밀번호"
+              {...register('password', { required: true })}
+            />
+            <FormControlLabel
+              control={<Checkbox color="default" size="small" />}
+              label="접기"
+              {...register('is_collapse')}
+            />
+            <FormControlLabel
+              control={<Checkbox color="default" size="small" />}
+              label="비밀글"
+              {...register('is_secret')}
+            />
+            <Select
+              defaultValue={selected}
+              onChange={handleChange}
+              sx={{
+                maxHeight: '32px',
+                fontSize: '14px',
+                color: 'rgba(0, 0, 0, 0.52)',
+                '& .MuiSelect-select': {
+                  padding: '10px 12px',
+                },
+              }}
+            >
+              <MenuItem value="image">이미지</MenuItem>
+              <MenuItem value="text">텍스트</MenuItem>
+            </Select>
+          </Options>
+          <InputWrapper>
+            {selected === 'image' && selectedImageOption()}
+            {selected === 'text' && selectedTextOption()}
+            <Button
+              variant="contained"
+              type="submit"
+              disableElevation
+              sx={{ backgroundColor: 'rgba(0, 0, 0, 0.8)' }}
+            >
+              업로드
+            </Button>
+          </InputWrapper>
+        </form>
       </Box>
       <Pagination
         count={5}
