@@ -13,8 +13,6 @@ router.post('/signup', userController.signup);
 
 // router.post('/login', userController.login);
 
-// router.patch('/update', auth, userController.update);
-
 // router.get('/logout', auth, userController.logout);
 
 module.exports = router;

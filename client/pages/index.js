@@ -13,6 +13,7 @@ import {
   Delete as DeleteIcon,
 } from '@material-ui/icons';
 import moment from 'moment';
+import Swal from 'sweetalert2';
 
 import TopSection from '../components/TopSection';
 import ContentSection from '../components/ContentSection';
@@ -42,6 +43,7 @@ const ExpandMore = styled((props) => {
 const Index = () => {
   const [data, setData] = useState([
     {
+      _id: 'uiouio12354',
       id: 4,
       type: 'text',
       content_value: '뒤늦은 자덕질, 너무 재미있다',
@@ -50,7 +52,7 @@ const Index = () => {
       is_secret: false,
       comments: [
         {
-          id: 3331,
+          _id: 'c3331',
           name: '테스터3',
           comment: '테스트 댓글3-1',
           createdAt: moment().format('YYYY[.]MM[.]DD hh[:]mm[:]ss'),
@@ -60,6 +62,7 @@ const Index = () => {
       ],
     },
     {
+      _id: 'cxzvxvxc78',
       id: 3,
       type: 'image',
       content_value:
@@ -69,7 +72,7 @@ const Index = () => {
       is_secret: true,
       comments: [
         {
-          id: 2221,
+          _id: 'b2221',
           name: '테스터2',
           comment: '테스트 댓글2-1',
           createdAt: moment().format('YYYY[.]MM[.]DD hh[:]mm[:]ss'),
@@ -77,7 +80,7 @@ const Index = () => {
           is_secret: true,
         },
         {
-          id: 2222,
+          _id: 'b2222',
           name: '테스터2',
           comment: '테스트 댓글2-2',
           createdAt: moment().format('YYYY[.]MM[.]DD hh[:]mm[:]ss'),
@@ -87,6 +90,7 @@ const Index = () => {
       ],
     },
     {
+      _id: 'kgj7h84135',
       id: 2,
       type: 'image',
       content_value:
@@ -97,6 +101,7 @@ const Index = () => {
       comments: [],
     },
     {
+      _id: 'afsd5ds455',
       id: 1,
       type: 'image',
       content_value:
@@ -106,7 +111,7 @@ const Index = () => {
       is_secret: false,
       comments: [
         {
-          id: 1111,
+          _id: 'a1111',
           name: '테스터1',
           comment: '테스트 댓글1',
           createdAt: moment().format('YYYY[.]MM[.]DD hh[:]mm[:]ss'),
@@ -114,7 +119,7 @@ const Index = () => {
           is_secret: false,
         },
         {
-          id: 1112,
+          _id: 'a1112',
           name: '테스터1',
           comment: '테스트 댓글2',
           createdAt: moment().format('YYYY[.]MM[.]DD hh[:]mm[:]ss'),
@@ -138,12 +143,27 @@ const Index = () => {
     setExpanded(newExpanded);
   };
 
+  const handleDeletePost = async (id) => {
+    const { value: password } = await Swal.fire({
+      title: '삭제 하시겠습니까?',
+      icon: 'warning',
+      input: 'password',
+      inputPlaceholder: '비밀번호를 입력하세요.',
+      inputAttributes: {
+        autocapitalize: 'off',
+        autocorrect: 'off'
+      },
+    })
+
+    // if (password) {}
+  };
+
   return (
     <Wrapper>
       <TopSection />
-      {data.map((each, key) => (
+      {data.map((each) => (
         <Card
-          key={each.id + key}
+          key={each._id}
           sx={{ maxWidth: 750, margin: '0 auto 25px auto' }}
           variant="outlined"
         >
@@ -157,7 +177,7 @@ const Index = () => {
                   color: 'rgba(0, 0, 0, 0.52)',
                 }}
               >
-                <DeleteIcon fontSize="inherit" />
+                <DeleteIcon fontSize="inherit" onClick={() => handleDeletePost(each._id)} />
               </IconButton>
             }
             title={`# ${each.id}`}

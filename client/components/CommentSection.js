@@ -76,13 +76,13 @@ const CommentSection = () => {
             <FormControlLabel
               control={<Checkbox color="default" size="small" />}
               label="접기"
-              sx={{ '& span:last-child': { fontWeight: 300, fontSize: '14px' } }}
+              sx={{ '& span:first-child': { paddingRight: '3px' }, '& span:last-child': { fontWeight: 300, fontSize: '14px' } }}
               {...register('is_collapse')}
             />
             <FormControlLabel
               control={<Checkbox color="default" size="small" />}
               label="비밀글"
-              sx={{ '& span:last-child': { fontWeight: 300, fontSize: '14px' } }}
+              sx={{ '& span:first-child': { paddingRight: '3px' }, '& span:last-child': { fontWeight: 300, fontSize: '14px' } }}
               {...register('is_secret')}
             />
           </OptionsBox>

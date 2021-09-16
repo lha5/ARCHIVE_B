@@ -6,6 +6,7 @@ import {
   Collapse,
   Typography,
 } from '@material-ui/core';
+import Swal from 'sweetalert2';
 
 const DelBtn = styled('span')({
   fontSize: '12px',
@@ -28,20 +29,35 @@ const CommentList = ({ comments }) => {
     setCollapsedComment(newExpanded);
   };
 
+  const handleDeleteComment = async (id) => {
+    const { value: password } = await Swal.fire({
+      title: '댓글을 삭제 하시겠습니까?',
+      icon: 'warning',
+      input: 'password',
+      inputPlaceholder: '비밀번호를 입력하세요.',
+      inputAttributes: {
+        autocapitalize: 'off',
+        autocorrect: 'off'
+      },
+    })
+
+    // if (password) {}
+  };
+
   return (
     <CardContent
       sx={{
         borderTop: '1px solid rgba(0, 0, 0, 0.12)',
       }}
     >
-      {comments.map((reply, key) => (
+      {comments.map((reply) => (
         <Typography
           paragraph
-          key={reply.id + key}
+          key={reply._id}
           sx={{ marginBottom: '25px' }}
         >
           <Typography variant="subtitle2">
-            {reply.name} {reply.createdAt} <DelBtn>삭제</DelBtn>
+            {reply.name} {reply.createdAt} <DelBtn onClick={() => handleDeleteComment(reply._id)}>삭제</DelBtn>
           </Typography>
           {reply.is_secret ? (
             <Typography

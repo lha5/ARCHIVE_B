@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button, Container, FormHelperText, TextField } from '@material-ui/core';
+import { Box, Button, Container, TextField } from '@material-ui/core';
 import styled from 'styled-components';
 
 const CustomContainer = styled(Container)`
@@ -7,6 +7,7 @@ const CustomContainer = styled(Container)`
   justify-content: center;
   align-items: center;
   height: 98vh;
+  border: 1px hidden;
 `;
 
 const Login = () => {
@@ -49,11 +50,8 @@ const Login = () => {
             shrink: true,
           }}
         />
-        <FormHelperText>
-          방문객은 아이디를 <strong>guest</strong>로 사용해주세요.
-        </FormHelperText>
         <br />
-        <Button type="submit" variant="contained" disableElevation>로그인</Button>
+        <Button type="submit" variant="contained" disableElevation sx={{ backgroundColor: 'rgba(0, 0, 0, 0.8)' }}>로그인</Button>
       </Box>
     </CustomContainer>
   );
