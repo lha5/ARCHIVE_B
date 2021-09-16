@@ -44,7 +44,6 @@ const Index = () => {
   const [data, setData] = useState([
     {
       _id: 'uiouio12354',
-      id: 4,
       type: 'text',
       content_value: '뒤늦은 자덕질, 너무 재미있다',
       createdAt: moment().format('YYYY[.]MM[.]DD hh[:]mm[:]ss'),
@@ -63,7 +62,6 @@ const Index = () => {
     },
     {
       _id: 'cxzvxvxc78',
-      id: 3,
       type: 'image',
       content_value:
         'https://pbs.twimg.com/media/E-2jtPpUYAAu4ml?format=jpg&name=large',
@@ -91,7 +89,6 @@ const Index = () => {
     },
     {
       _id: 'kgj7h84135',
-      id: 2,
       type: 'image',
       content_value:
         'https://pbs.twimg.com/media/E-XYCUXUYAMr1qT?format=png&name=large',
@@ -102,7 +99,6 @@ const Index = () => {
     },
     {
       _id: 'afsd5ds455',
-      id: 1,
       type: 'image',
       content_value:
         'https://pbs.twimg.com/media/E-IFwmuWEAc3CKq?format=png&name=medium',
@@ -161,7 +157,7 @@ const Index = () => {
   return (
     <Wrapper>
       <TopSection />
-      {data.map((each) => (
+      {data.map((each, idx) => (
         <Card
           key={each._id}
           sx={{ maxWidth: 750, margin: '0 auto 25px auto' }}
@@ -180,7 +176,7 @@ const Index = () => {
                 <DeleteIcon fontSize="inherit" onClick={() => handleDeletePost(each._id)} />
               </IconButton>
             }
-            title={`# ${each.id}`}
+            title={`# ${data.length - idx}`}
             subheader={each.createdAt}
             sx={{
               borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
@@ -190,16 +186,16 @@ const Index = () => {
           <CommentList comments={each.comments} />
           <CardActions disableSpacing>
             <ExpandMore
-              expand={expanded.indexOf(each.id) !== -1 ? true : false}
-              onClick={() => handleExpandClick(each.id)}
-              aria-expanded={expanded.indexOf(each.id) !== -1 ? true : false}
+              expand={expanded.indexOf(each._id) !== -1 ? true : false}
+              onClick={() => handleExpandClick(each._id)}
+              aria-expanded={expanded.indexOf(each._id) !== -1 ? true : false}
               aria-label="to comment"
             >
               <ExpandMoreIcon />
             </ExpandMore>
           </CardActions>
           <Collapse
-            in={expanded.indexOf(each.id) !== -1 ? true : false}
+            in={expanded.indexOf(each._id) !== -1 ? true : false}
             timeout="auto"
             unmountOnExit
           >
