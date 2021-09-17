@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { Box, Button, CardMedia, Collapse } from '@material-ui/core';
+import { Box, Button, CardMedia, Collapse, Typography } from '@material-ui/core';
 
 const ContentSection = ({ content }) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -64,13 +64,13 @@ const ContentSection = ({ content }) => {
           unmountOnExit
         >
           <Box sx={{ margin: '20px 10px', textAlign: 'center' }}>
-            {content.content_value}
+            <Typography variant="body2">{content.content_value}</Typography>
           </Box>
         </Collapse>
       </>
     ) : (
       <Box sx={{ margin: '20px 10px', textAlign: 'center' }}>
-        {content.content_value}
+        <Typography variant="body2">{content.content_value}</Typography>
       </Box>
     );
   return content.type === 'image' ? imageContent() : textContent();

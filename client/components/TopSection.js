@@ -87,6 +87,12 @@ const InputWrapper = styled('div')({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  '& .btn-section': {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
 
 const TopSection = () => {
@@ -123,7 +129,8 @@ const TopSection = () => {
       multiline
       rows={2}
       sx={{
-        width: '400px',
+        width: '220px',
+        maxWidth: '220px',
         height: 'auto',
         marginTop: '10px',
         marginBottom: '10px',
@@ -134,7 +141,7 @@ const TopSection = () => {
         '& ::placeholder': { fontSize: '14px' },
       }}
       placeholder="글을 입력하세요."
-      {...register('content_value')}
+      {...register('content_value', { required: true })}
     />
   );
 
@@ -150,24 +157,6 @@ const TopSection = () => {
       >
         <form onSubmit={handleSubmit(onSubmit)}>
           <Options>
-            <TextField
-              type="password"
-              variant="outlined"
-              size="small"
-              sx={{
-                maxWidth: '90px',
-                maxHeight: '32px',
-                fontSize: '14px',
-                color: 'rgba(0, 0, 0, 0.52)',
-                '& ::placeholder': { fontSize: '13px' },
-                '& input': {
-                  padding: '5px',
-                },
-                marginRight: '10px',
-              }}
-              placeholder="비밀번호"
-              {...register('password', { required: true })}
-            />
             <FormControlLabel
               control={<Checkbox color="default" size="small" />}
               label="접기"
@@ -197,14 +186,34 @@ const TopSection = () => {
           <InputWrapper>
             {selected === 'image' && selectedImageOption()}
             {selected === 'text' && selectedTextOption()}
-            <Button
-              variant="contained"
-              type="submit"
-              disableElevation
-              sx={{ backgroundColor: 'rgba(0, 0, 0, 0.8)' }}
-            >
-              업로드
-            </Button>
+            <div className="btn-section">
+              <TextField
+                type="password"
+                variant="outlined"
+                size="small"
+                sx={{
+                  maxWidth: '90px',
+                  maxHeight: '32px',
+                  fontSize: '14px',
+                  color: 'rgba(0, 0, 0, 0.52)',
+                  '& ::placeholder': { fontSize: '13px' },
+                  '& input': {
+                    padding: '5px',
+                  },
+                  marginRight: '10px',
+                }}
+                placeholder="비밀번호"
+                {...register('password', { required: true })}
+              />
+              <Button
+                variant="contained"
+                type="submit"
+                disableElevation
+                sx={{ backgroundColor: 'rgba(0, 0, 0, 0.8)' }}
+              >
+                업로드
+              </Button>
+            </div>
           </InputWrapper>
         </form>
       </Box>

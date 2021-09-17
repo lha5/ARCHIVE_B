@@ -7,6 +7,7 @@ import {
   CardActions,
   Collapse,
   IconButton,
+  Typography,
 } from '@material-ui/core';
 import {
   ExpandMore as ExpandMoreIcon,
@@ -176,8 +177,8 @@ const Index = () => {
                 <DeleteIcon fontSize="inherit" onClick={() => handleDeletePost(each._id)} />
               </IconButton>
             }
-            title={`# ${data.length - idx}`}
-            subheader={each.createdAt}
+            title={<Typography variant="h6"># {data.length - idx}</Typography>}
+            subheader={<Typography variant="body2">{each.createdAt}</Typography>}
             sx={{
               borderBottom: '1px solid rgba(0, 0, 0, 0.12)',
             }}
