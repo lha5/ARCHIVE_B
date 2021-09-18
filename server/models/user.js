@@ -23,9 +23,6 @@ const userSchema = mongoose.Schema({
   token: {
     type: String
   },
-  connectedAt: {
-    type: Date
-  },
 }, { timestamps: true });
 
 userSchema.methods.generateToken = function (cb) {

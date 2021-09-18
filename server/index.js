@@ -17,8 +17,6 @@ mongoose
   .connect(process.env.MongoDBURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
   })
   .then(() => logger.info('MongoDB is connected.'))
   .catch((error) => logger.error('MongoDB connecting got ERROR \n', error));
@@ -38,6 +36,8 @@ app.get('/', (req, res) => {
 });
 
 app.use('/api/user', require('./routes/user'));
+app.use('/api/post', require('./routes/post'));
+app.use('/api/comment', require('./routes/comment'));
 
 // error handler function
 app.use((error, req, res, next) => {

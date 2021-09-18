@@ -18,3 +18,19 @@ exports.signup = async (req, res, next) => {
     next(error);
   }
 }
+
+exports.signin = async (req, res, next) => {
+  try {
+  } catch (error) {
+    console.error('error occured in user route - signin :: \n', error);
+    next(error);
+  }
+}
+
+exports.logout = async (req, res, next) => {
+  try {
+  } catch (error) {
+    console.error('error occured in user route - logout :: \n', error);
+    next(error);
+  }
+}
