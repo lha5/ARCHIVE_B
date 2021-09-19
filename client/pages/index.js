@@ -16,10 +16,10 @@ import {
 import moment from 'moment';
 import Swal from 'sweetalert2';
 
-import TopSection from '../components/TopSection';
-import ContentSection from '../components/ContentSection';
-import CommentList from '../components/CommentList';
-import CommentSection from '../components/CommentSection';
+import TopSection from '../components/contents/TopSection';
+import ContentSection from '../components/contents/ContentSection';
+import CommentList from '../components/contents/CommentList';
+import CommentSection from '../components/contents/CommentSection';
 
 const Wrapper = styled('div')({
   margin: '0',
@@ -173,8 +173,9 @@ const Index = () => {
                   marginTop: '17px',
                   color: 'rgba(0, 0, 0, 0.52)',
                 }}
+                onClick={() => handleDeletePost(each._id)}
               >
-                <DeleteIcon fontSize="inherit" onClick={() => handleDeletePost(each._id)} />
+                <DeleteIcon fontSize="inherit" />
               </IconButton>
             }
             title={<Typography variant="h6"># {data.length - idx}</Typography>}

@@ -14,7 +14,7 @@ const DelBtn = styled('span')({
   cursor: 'pointer',
 });
 
-const CommentList = ({ comments }) => {
+const CommentList = ({ comments = [] }) => {
   const [collapsedComment, setCollapsedComment] = useState([]);
 
   const handleCollapsedCommentClick = (id) => {
@@ -50,7 +50,7 @@ const CommentList = ({ comments }) => {
         borderTop: '1px solid rgba(0, 0, 0, 0.12)',
       }}
     >
-      {comments.map((reply) => (
+      {comments && comments.map((reply) => (
         <Typography
           paragraph
           key={reply._id}
@@ -68,15 +68,15 @@ const CommentList = ({ comments }) => {
             </Typography>
           ) : (
             reply.is_collapse ? (
-              <>
-              <span
-                onClick={() => handleCollapsedCommentClick(reply.id)}
-                aria-expanded={collapsedComment.indexOf(reply.id) !== -1 ? true : false}
-                aria-label="collapsed"
-                style={{ cursor: 'pointer', fontSize: '14px', color: 'rgba(0, 0, 0, 0.52)' }}
-              >
-                {collapsedComment.indexOf(reply.id) !== -1 ? '접기' : '펼치기'}
-              </span>
+              <div>
+                <span
+                  onClick={() => handleCollapsedCommentClick(reply.id)}
+                  aria-expanded={collapsedComment.indexOf(reply.id) !== -1 ? true : false}
+                  aria-label="collapsed"
+                  style={{ cursor: 'pointer', fontSize: '14px', color: 'rgba(0, 0, 0, 0.52)' }}
+                >
+                  {collapsedComment.indexOf(reply.id) !== -1 ? '접기' : '펼치기'}
+                </span>
                 <Collapse
                   in={collapsedComment.indexOf(reply.id) !== -1 ? true : false}
                   timeout="auto"
@@ -84,7 +84,7 @@ const CommentList = ({ comments }) => {
                 >
                   <Typography variant="body2">{reply.comment}</Typography>
                 </Collapse>
-              </>
+              </div>
             ) :(
               <Typography variant="body2">{reply.comment}</Typography>
             )
