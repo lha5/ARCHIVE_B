@@ -5,7 +5,7 @@ import { Box, Button, Container, TextField } from '@material-ui/core';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 
-import { signInAction } from '../reducers';
+import { signInAction } from '../reducers/user';
 
 const CustomContainer = styled(Container)`
   display: flex;

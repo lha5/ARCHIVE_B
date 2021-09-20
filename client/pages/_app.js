@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import wrapper from '../store/configureStore';
 
 const App = ({ Component }) => {
-  const isAuthenticated = useSelector(state => state.user.isAuth);
+  const user = useSelector(state => state.user);
 
   return (
     <>
@@ -19,7 +19,7 @@ const App = ({ Component }) => {
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
       </Head>
-      <Component isAuth={isAuthenticated} />
+      <Component user={user} />
     </>
   );
 };

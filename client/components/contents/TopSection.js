@@ -98,6 +98,9 @@ const InputWrapper = styled('div')({
 const TopSection = () => {
   const [selected, setSelected] = useState('image');
 
+  const [image, setImage] = useState();
+  const [imageFileName, setImageFileName] = useState('파일을 선택하세요');
+
   const { register, handleSubmit } = useForm({
     mode: 'onSubmit',
     shouldFocusError: true,
@@ -105,6 +108,11 @@ const TopSection = () => {
 
   const handleChange = (event) => {
     setSelected(event.target.value);
+  };
+
+  const handleImageFile = (event) => {
+    setImage(event.target.files[0]);
+    setImageFileName(event.target.files[0].name);
   };
 
   const onSubmit = (data) => {
@@ -115,11 +123,11 @@ const TopSection = () => {
 
   const selectedImageOption = () => (
     <ImageUploader>
-      <input className="upload-name" value="파일을 선택하세요" disabled />
+      <input className="upload-name" value={imageFileName} disabled />
       <label htmlFor="filename">
         <Search />
       </label>
-      <input type="file" id="filename" className="upload-hidden" />
+      <input type="file" id="filename" className="upload-hidden" onChange={handleImageFile} />
     </ImageUploader>
   );
 

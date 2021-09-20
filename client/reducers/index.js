@@ -1,55 +1,22 @@
 import { HYDRATE } from 'next-redux-wrapper';
+import { combineReducers } from 'redux';
 
-const initialState = {
-  user: {
-    isAuth: false,
-    name: '',
-    role: 0,
+import user from './user';
+import post from './post';
+import comment from './comment';
+
+const rootReducer = combineReducers({
+  index: (state = {}, action) => {
+    switch (action.type) {
+      case HYDRATE:
+        return { ...state, ...action.payload };
+      default:
+        return state;
+    }
   },
-  post: {
-    posts: [],
-  },
-};
-
-// async action creator
-
-// action creator
-export const signInAction = (data) => {
-  return {
-    type: 'SIGN_IN',
-    data,
-  };
-};
-
-export const logoutAction = () => {
-  return {
-    type: 'LOG_OUT',
-  };
-};
-
-const rootReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case HYDRATE:
-      return { ...state, ...action.payload };
-    case 'SIGN_IN':
-      return {
-        ...state,
-        user: {
-          ...state.user,
-          isAuth: true,
-        },
-      };
-    case 'LOG_OUT':
-      return {
-        ...state,
-        user: {
-          ...initialState.user,
-          isAuth: false,
-        },
-      };
-    default:
-      return state;
-  }
-};
+  user,
+  post,
+  comment,
+});
 
 export default rootReducer;
