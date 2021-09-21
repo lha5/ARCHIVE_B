@@ -1,14 +1,13 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 const postSchema = Schema(
   {
     name: {
-      type: Strng,
+      type: String,
     },
     password: {
-      type: Strng,
+      type: String,
     },
     type: {
       type: String,
@@ -27,8 +26,6 @@ const postSchema = Schema(
   },
   { timestamps: true }
 );
-
-postSchema.plugin(AutoIncrement, { inc_field: 'id' });
 
 const Post = mongoose.model('Post', postSchema);
 

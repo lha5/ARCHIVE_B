@@ -1,3 +1,5 @@
+const { Comment } = require('../models/comment');
+
 exports.createComment = async (req, res, next) => {
   try {
   } catch (error) {

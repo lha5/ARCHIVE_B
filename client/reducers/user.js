@@ -1,5 +1,8 @@
 const initialState = {
+  isSigningIn: false,
   isAuth: false,
+  isLoggingOut: false,
+  id: '',
   name: '',
   role: 0,
 };
@@ -11,48 +14,48 @@ export const signinRequestAction = (data) => {
   };
 };
 
-export const signinSuccessAction = (data) => {
-  return {
-    type: 'SIGN_IN_SUCCESS',
-    data,
-  };
-};
-
-export const signinFailureAction = (data) => {
-  return {
-    type: 'SIGN_IN_FAILURE',
-    data,
-  };
-};
-
 export const logoutRequestAction = () => {
   return {
     type: 'LOG_OUT_REQUEST',
   };
 };
 
-export const logoutSuccessAction = () => {
-  return {
-    type: 'LOG_OUT_SUCCESS',
-  };
-};
-
-export const logoutFailureAction = () => {
-  return {
-    type: 'LOG_OUT_FAILURE',
-  };
-};
-
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'SIGN_IN':
+    case 'SIGN_IN_REQUEST':
       return {
         ...state,
+        isSigningIn: true,
+        isAuth: false,
+      };
+    case 'SIGN_IN_SUCCESS':
+      return {
+        ...state,
+        isSigningIn: false,
         isAuth: true,
       };
-    case 'LOG_OUT':
+    case 'SIGN_IN_FAILURE':
       return {
-        ...initialState,
+        ...state,
+        isSigningIn: false,
+        isAuth: false,
+      };
+    case 'LOG_OUT_REQUEST':
+      return {
+        ...state,
+        isLoggingOut: true,
+        isAuth: false,
+      };
+    case 'LOG_OUT_SUCCESS':
+      return {
+        ...state,
+        isLoggingOut: false,
+        isAuth: false,
+      };
+    case 'LOG_OUT_FAILURE':
+      return {
+        ...state,
+        isLoggingOut: false,
         isAuth: false,
       };
     default:

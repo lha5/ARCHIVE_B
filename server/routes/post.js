@@ -10,6 +10,6 @@ router.post('/', postController.createPost);
 
 router.get('/', postController.getAllPosts);
 
-router.delete('/:id', postController.deletePost);
+router.delete('/', postController.deletePost);
 
 module.exports = router;

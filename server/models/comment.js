@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const AutoIncrement = require('mongoose-sequence')(mongoose);
 
 const commentSchema = Schema(
   {
@@ -9,10 +8,10 @@ const commentSchema = Schema(
       ref: 'Post',
     },
     name: {
-      type: Strng,
+      type: String,
     },
     password: {
-      type: Strng,
+      type: String,
     },
     comment: {
       type: String,
@@ -29,8 +28,6 @@ const commentSchema = Schema(
   { timestamps: true }
 );
 
-commentSchema.plugin(AutoIncrement, { inc_field: 'id' });
+const Comment = mongoose.model('Comment', commentSchema);
 
-const Post = mongoose.model('Post', commentSchema);
-
-module.exports = { Post };
+module.exports = { Comment };
