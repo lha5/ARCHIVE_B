@@ -111,14 +111,22 @@ const TopSection = () => {
   };
 
   const handleImageFile = (event) => {
-    setImage(event.target.files[0]);
-    setImageFileName(event.target.files[0].name);
+    const imageFileInfo = event.target.files[0];
+    if (imageFileInfo) {
+      setImage(imageFileInfo);
+      setImageFileName(imageFileInfo.name);
+    }
   };
 
   const onSubmit = (data) => {
     const dataToSubmit = { ...data };
     dataToSubmit.type = selected;
-    console.log('data? ', dataToSubmit);
+    if (selected === 'text') {
+      console.log('data(text)? ', dataToSubmit);
+    } else if (selected === 'image') {
+      dataToSubmit.content_value = imageFileName; // 나중에 파일 경로로 바꾸기
+      console.log('data(image) ', dataToSubmit);
+    }
   };
 
   const selectedImageOption = () => (
