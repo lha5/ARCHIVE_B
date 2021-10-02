@@ -11,7 +11,7 @@ import {
 } from '../reducers/comment';
 
 function createCommentAPI(dataToSubmit) {
-  return axios.post(`${process.env.REACT_APP_COMMENT_API}`, dataToSubmit);
+  return axios.post(`${process.env.NEXT_PUBLIC_COMMENT_API}`, dataToSubmit);
 }
 
 function deleteCommentByIdAPI(dataToSubmit) {
@@ -21,7 +21,7 @@ function deleteCommentByIdAPI(dataToSubmit) {
       password: dataToSubmit.password,
     }
   };
-  return axios.delete(`${process.env.REACT_APP_COMMENT_API}`, config);
+  return axios.delete(`${process.env.NEXT_PUBLIC_COMMENT_API}`, config);
 }
 
 function* createComment(action) {

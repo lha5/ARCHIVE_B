@@ -8,6 +8,8 @@ const postController = require('../controller/post');
 
 router.post('/', postController.createPost);
 
+router.post('/upload-image', postController.uploadImageFile);
+
 router.get('/', postController.getAllPosts);
 
 router.delete('/', postController.deletePost);

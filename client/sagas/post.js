@@ -14,11 +14,11 @@ import {
 } from '../reducers/post';
 
 function createPostAPI(dataToSubmit) {
-  return axios.post(`${process.env.REACT_APP_POST_API}`, dataToSubmit);
+  return axios.post(`${process.env.NEXT_PUBLIC_POST_API}`, dataToSubmit);
 }
 
 function getAllPostsAPI() {
-  return axios.get(`${process.env.REACT_APP_POST_API}`);
+  return axios.get(`${process.env.NEXT_PUBLIC_POST_API}`);
 }
 
 function deletePostByIdAPI(dataToSubmit) {
@@ -28,7 +28,7 @@ function deletePostByIdAPI(dataToSubmit) {
       password: dataToSubmit.password,
     }
   };
-  return axios.delete(`${process.env.REACT_APP_POST_API}`, config);
+  return axios.delete(`${process.env.NEXT_PUBLIC_POST_API}`, config);
 }
 
 function* createPost(action) {

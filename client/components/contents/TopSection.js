@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import axios from 'axios';
 
 import { styled } from '@material-ui/core/styles';
 import {
@@ -13,6 +15,7 @@ import {
 } from '@material-ui/core';
 import { Search } from '@material-ui/icons';
 import { useForm } from 'react-hook-form';
+import Swal from 'sweetalert2';
 
 const Options = styled('div')({
   '&': {
@@ -95,7 +98,7 @@ const InputWrapper = styled('div')({
   },
 });
 
-const TopSection = () => {
+const TopSection = ({ isAuth, userId }) => {
   const [selected, setSelected] = useState('image');
 
   const [image, setImage] = useState();
@@ -118,14 +121,23 @@ const TopSection = () => {
     }
   };
 
-  const onSubmit = (data) => {
+  const dispatch = useDispatch();
+
+  const onSubmit = async (data) => {
     const dataToSubmit = { ...data };
     dataToSubmit.type = selected;
-    if (selected === 'text') {
-      console.log('data(text)? ', dataToSubmit);
-    } else if (selected === 'image') {
-      dataToSubmit.content_value = imageFileName; // 나중에 파일 경로로 바꾸기
-      console.log('data(image) ', dataToSubmit);
+
+    if (selected === 'image') {
+      const formData = new FormData();
+      formData.append('image', image);
+
+      await axios.post(`${process.env.NEXT_PUBLIC_SERVER_URI}${process.env.NEXT_PUBLIC_POST_API}/upload-image`, formData)
+        .then(response => {
+          if (response.data.success) {
+            dataToSubmit.content_value = response.data.result.path;
+          }
+        })
+        .catch(error => console.error('error occured in onSubmit() - upload image. \n', error));
     }
   };
 
@@ -160,6 +172,23 @@ const TopSection = () => {
       {...register('content_value', { required: true })}
     />
   );
+
+  const handleLogout = () => {
+    Swal.fire({
+      title: '로그아웃 하시겠습니까?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: '로그아웃',
+      cancelButtonText: '취소',
+    })
+      .then(value => {
+        if (value.isConfirmed) {
+          console.log('id?? ', userId);
+        } else {
+          Swal.close();
+        }
+      });
+  };
 
   return (
     <>
@@ -233,6 +262,16 @@ const TopSection = () => {
           </InputWrapper>
         </form>
       </Box>
+      {isAuth && (
+        <Button
+          variant="contained"
+          disableElevation
+          sx={{ backgroundColor: 'rgba(0, 0, 0, 0.8)' }}
+          onClick={handleLogout}
+        >
+          로그아웃
+        </Button>
+      )}
       <Pagination
         count={5}
         sx={{

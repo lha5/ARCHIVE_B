@@ -1,11 +1,11 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Box, Button, Container, TextField } from '@material-ui/core';
 import styled from 'styled-components';
 import { useForm } from 'react-hook-form';
 
-import { signInAction } from '../reducers/user';
+import { SIGN_IN_REQUEST } from '../reducers/user';
 
 const CustomContainer = styled(Container)`
   display: flex;
@@ -16,6 +16,8 @@ const CustomContainer = styled(Container)`
 `;
 
 const Login = () => {
+  const { isAuth } = useSelector(state => state.user);
+  
   const { register, handleSubmit } = useForm({
     mode: 'onSubmit',
     shouldFocusError: true,
@@ -26,7 +28,10 @@ const Login = () => {
   const onSubmit = (data) => {
     const dataToSubmit = { ...data };
 
-    dispatch(signInAction(dataToSubmit));
+    dispatch({
+      type: SIGN_IN_REQUEST,
+      data: dataToSubmit
+    });
   };
 
   return (

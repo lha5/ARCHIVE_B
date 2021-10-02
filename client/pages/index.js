@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 import { styled } from '@material-ui/core/styles';
 import {
@@ -42,6 +43,8 @@ const ExpandMore = styled((props) => {
 }));
 
 const Index = () => {
+  const { isAuth, id } = useSelector(state => state.user);
+
   const [data, setData] = useState([
     {
       _id: 'uiouio12354',
@@ -157,7 +160,7 @@ const Index = () => {
 
   return (
     <Wrapper>
-      <TopSection />
+      <TopSection isAuth={isAuth} userId={id} />
       {data.map((each, idx) => (
         <Card
           key={each._id}

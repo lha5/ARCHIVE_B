@@ -11,11 +11,11 @@ import {
 } from '../reducers/user';
 
 function signInAPI(dataToSubmit) {
-  return axios.post(`${process.env.REACT_APP_USER_API}/signin`, dataToSubmit);
+  return axios.post(`${process.env.NEXT_PUBLIC_USER_API}/signin`, dataToSubmit);
 }
 
 function logOutAPI(id) {
-  return axios.get(`${process.env.REACT_APP_USER_API}/logout/:${id}`);
+  return axios.get(`${process.env.NEXT_PUBLIC_USER_API}/logout/:${id}`);
 }
 
 function* signIn(action) {
